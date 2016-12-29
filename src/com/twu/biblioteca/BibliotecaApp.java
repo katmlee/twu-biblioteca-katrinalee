@@ -6,17 +6,18 @@ import java.util.*;
 
 public class BibliotecaApp {
 
-    private ArrayList<Book> books = new ArrayList<Book> ();
+    private ArrayList<Book> books = new ArrayList<Book>();
+    private boolean isALibraryBook;
 
     public String welcomeMessage(){
         return "Welcome to your Biblioteca- your stop for all your library needs!";
     }
 
     public ArrayList<Book>  displayBookList(){
-        Book b1 =  new Book("Head First Java", "Kathy Sierra", 2003);
-        Book b2 = new Book("Test-Driven Development", "Kent Beck", 2003);
-        Book b3 = new Book("Agile Fundamentals", "Someone", 2010);
-        Book b4 = new Book("Ruby Ninjas", "Joel", 1909);
+        Book b1 = new Book("Head First Java", "Kathy Sierra", 2003, true);
+        Book b2 = new Book("Test-Driven Development", "Kent Beck", 2003, true);
+        Book b3 = new Book("Agile Fundamentals", "Someone", 2010, true);
+        Book b4 = new Book("Ruby Ninjas", "Joel", 1909, true);
 
         books.add(b1);
         books.add(b2);
@@ -28,16 +29,39 @@ public class BibliotecaApp {
     }
 
     public String checkoutBook(String bookToCheckout){
-        displayBookList();
-        if (books.contains(bookToCheckout)){
-            int index = books.indexOf(bookToCheckout);
-            books.remove(index);
-            System.out.println("Thanks for checking out " + bookToCheckout);
-
-        } else {
-            System.out.println("This book is not currently available.");
+        System.out.println(books);
+        System.out.println(bookToCheckout);
+        for (Book book : books) {
+            if (book.getTitle().contains(bookToCheckout)) {
+                isALibraryBook = true;
+                if(book.getCheckedIn()) {
+                    book.setCheckedIn(false);
+                    //instead of removing the book add another field to book, boolean checked in?
+                    System.out.println("Thanks for checking out " + bookToCheckout);
+                } else {
+                    System.out.println("Sorry, this book is currently checked out.");
+                }
+                break;
+            }
+        }
+        if(!isALibraryBook) {
+            System.out.println("Sorry, that book is not in our library catalog. Please try another.");
         }
         return bookToCheckout;
+    }
+
+    public String returnBook(String bookToCheckin){
+        for (Book book : books) {
+            if (book.getTitle().contains(bookToCheckin)) {
+                isALibraryBook = true;
+                book.setCheckedIn(true);
+                System.out.println("Thank you for returning the book!");
+            }
+        }
+        if(!isALibraryBook) {
+            System.out.println("Sorry, that book is not in our library catalog.");
+        }
+        return bookToCheckin;
     }
 
     public void menu() {
@@ -52,7 +76,6 @@ public class BibliotecaApp {
         System.out.println("4 - Quit");
 
         selection = input.nextInt();
-//        return selection;
         switch(selection)
         {
             case 1:
@@ -65,7 +88,10 @@ public class BibliotecaApp {
                 checkoutBook(bookToCheckOut);
                 break;
             case 3:
-//                returnBook();
+                System.out.println("What book would you like to return?");
+                Scanner bookReturn = new Scanner(System.in);
+                String bookToCheckin = bookReturn.nextLine();
+                returnBook(bookToCheckin);
                 break;
             case 4:
                 System.out.println("-----------");
@@ -81,7 +107,6 @@ public class BibliotecaApp {
         BibliotecaApp user = new BibliotecaApp();
         user.welcomeMessage();
         user.menu();
-        user.displayBookList();
     }
 }
 
@@ -96,6 +121,6 @@ public class BibliotecaApp {
 //        *Checkout Book - As a librarian, I would like customers to be able to check-out a book. Checked out books should not appear in the list of all library books.
 //        *Successful Checkout - As a customer, I would like to know that a book has been checked out by seeing the message “Thank you! Enjoy the book”.
 //        *Unsuccessful Checkout - As a customer, I would like to be notified if the book I tried to check-out is not available by seeing the message, “That book is not available.”, so that I know that I need to select a different book or fix my spelling error.
-//        Return Book - As a librarian, I would like customers to be able to return a book, so that other customers can check that book out. Returned books should appear in the list of library books.
-//        Successful Return - As a customer, I would like to be notified if the book I am returning belongs to this library by seeing the message, “Thank you for returning the book.”, so that I know I returned the book to the right library.
-//        Unsuccessful Return - As a customer, I would like to be notified if the book I am returning has not been added to this library by seeing the message, “That is not a valid book to return.”, so that I can return it to the correct library or fix my spelling error.
+//        *Return Book - As a librarian, I would like customers to be able to return a book, so that other customers can check that book out. Returned books should appear in the list of library books.
+//        *Successful Return - As a customer, I would like to be notified if the book I am returning belongs to this library by seeing the message, “Thank you for returning the book.”, so that I know I returned the book to the right library.
+//        *Unsuccessful Return - As a customer, I would like to be notified if the book I am returning has not been added to this library by seeing the message, “That is not a valid book to return.”, so that I can return it to the correct library or fix my spelling error.
