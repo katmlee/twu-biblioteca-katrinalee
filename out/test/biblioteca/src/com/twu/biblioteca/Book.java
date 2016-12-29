@@ -32,6 +32,6 @@ public class Book
 
     @Override
     public String toString(){
-        return "[Book title] " + this.getTitle() + " [Author] " + this.getAuthor() + " [Year Published] " + this.getYear()+ "[Checked In?]" + this.getCheckedIn();
+        return "\n Book title: " + this.getTitle() + " Author: " + this.getAuthor() + " Year Published: " + this.getYear()+ "\n";
     }
 }
