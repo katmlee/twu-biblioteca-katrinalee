@@ -41,8 +41,7 @@ public class BibliotecaApp {
                 isALibraryBook = true;
                 if(book.getCheckedIn()) {
                     book.setCheckedIn(false);
-                    //instead of removing the book add another field to book, boolean checked in?
-                    System.out.println("Thanks for checking out " + bookToCheckout);
+                    System.out.println("Thanks for checking out " + bookToCheckout + ". Enjoy the book! ");
                 } else {
                     System.out.println("Sorry, this book is currently checked out.");
                 }
@@ -75,7 +74,7 @@ public class BibliotecaApp {
         int selection;
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Choose from these choices");
+        System.out.println("Choose from these options:");
         System.out.println("1 - Display list of books");
         System.out.println("2 - Check out book");
         System.out.println("3 - Return book");
