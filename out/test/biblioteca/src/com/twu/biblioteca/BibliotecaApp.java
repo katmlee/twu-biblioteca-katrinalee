@@ -8,10 +8,11 @@ public class BibliotecaApp {
 
     private ArrayList<Book> books = new ArrayList<Book>();
     private boolean isALibraryBook;
+    private String welcomeMessage = "Welcome to your Biblioteca- your stop for all your library needs!";
 
     public String welcomeMessage(){
-        System.out.println("Welcome to your Biblioteca- your stop for all your library needs!");
-        return "Welcome to your Biblioteca- your stop for all your library needs!";
+        System.out.println(welcomeMessage);
+        return welcomeMessage;
     }
 
     public ArrayList<Book>  createBookList(){

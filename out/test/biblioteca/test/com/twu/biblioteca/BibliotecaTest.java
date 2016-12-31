@@ -9,24 +9,37 @@ import org.junit.Test;
 import java.util.*;
 
 public class BibliotecaTest {
+    private BibliotecaApp library;
 
     @Before
     public void setUp() {
-        BibliotecaApp tester = new BibliotecaApp();
+        library = new BibliotecaApp();
     }
 
     @Test
     public void shouldPrintWelcomeMessage() {
-        BibliotecaApp tester = new BibliotecaApp();
-        assertEquals( tester.welcomeMessage(), "Welcome to your Biblioteca- your stop for all your library needs!");
+        assertEquals( library.welcomeMessage(), "Welcome to your Biblioteca- your stop for all your library needs!");
     }
 
     @Test
     public void shouldCreateNewListOfBooks() {
-        BibliotecaApp library = new BibliotecaApp();
         List<Book> bookList = library.createBookList();
         assertEquals(bookList.size(), 4);
     }
+
+    @Test
+    public void shouldCreateNewBook(){
+        Book book = new Book("Help Me", "Gary Cook",1990, true);
+        assertEquals(book.getTitle(), "Help Me");
+    }
+
+    @Test
+    public void shouldCreateNewMovie(){
+        Movie movie = new Movie("Barry", 2016, "Jon Siegal", "8");
+        assertEquals(movie.getTitle(), "Barry");
+
+    }
+
 
     @Test
     public void shouldCheckTheMenuPrintsOutAListOfOptions(){
@@ -40,17 +53,26 @@ public class BibliotecaTest {
 
     @Test
     public void shouldSetBookToCheckedOutAndReturnBook() {
-        BibliotecaApp library = new BibliotecaApp();
         List<Book> bookList = library.createBookList();
-        l.checkoutBook("Head First Java");
+        library.checkoutBook("Head First Java");
         assertEquals(false, bookList.get(0).getCheckedIn());
+    }
+
+
+    @Test
+    public void shouldCheckIfBookExistsInBookListAndReturnErrorMessage() {
+
+    }
+
+    @Test
+    public void shouldCheckIfBookIsAlreadyCheckedout() {
+
     }
 
     @Test
     public void shouldSetBookToCheckedinAndReturnBook() {
-        BibliotecaApp library = new BibliotecaApp();
         List<Book> bookList = library.createBookList();
-        l.returnBook("Head First Java");
+        library.returnBook("Head First Java");
         assertEquals(true, bookList.get(0).getCheckedIn());
 
     }
