@@ -20,4 +20,8 @@ public class Movie
         return title;
     }
 
+    public boolean getCheckedIn(){
+        return checkedIn;
+    }
+
 }

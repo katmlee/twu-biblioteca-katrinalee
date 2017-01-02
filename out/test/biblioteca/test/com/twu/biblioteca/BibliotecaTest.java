@@ -99,28 +99,46 @@ public class BibliotecaTest {
 
     @Test
     public void shouldPrintOutListOfMovies() {
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+
         Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
         Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
         Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
-        library.movies.addMovie(movie1);
-        library.movies.addMovie(movie2);
-        library.movies.addMovie(movie3);
+        movies.add(movie1);
+        movies.add(movie2);
+        movies.add(movie3);
 
-        assertEquals(movieList.size(), 3);
+
+        assertEquals(movies.size(), 3);
 
     }
 
     @Test
     public void shouldCheckIfMovieIsInMovieList() {
-        libary.checkLibaryMovie("When Harry Met Sally");
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+        movies.add(movie1);
+        movies.add(movie2);
+        movies.add(movie3);
 
-        assertFalse(library.getIsALibraryMovie());
+        assertFalse(library.checkIfLibraryMovie("When Harry Met Sally"));
+        assertTrue(library.checkIfLibraryMovie("Frozen"));
     }
 
     @Test
     public void shouldCheckIfMovieIsCheckedIn() {
-        assertTrue(movieList.get(0).getCheckedIn());
-        assertFalse(movieList.get(1).getCheckedIn());
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+        movies.add(movie1);
+        movies.add(movie2);
+        movies.add(movie3);
+
+        assertTrue(movies.get(0).getCheckedIn());
+        assertFalse(movies.get(1).getCheckedIn());
     }
 
     @Test

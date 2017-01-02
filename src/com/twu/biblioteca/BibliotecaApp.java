@@ -7,7 +7,9 @@ import java.util.*;
 public class BibliotecaApp {
 
     private ArrayList<Book> books = new ArrayList<Book>();
+    private ArrayList<Movie> movies = new ArrayList<Movie>();
     private boolean isALibraryBook;
+    private boolean isALibraryMovie;
     private String welcomeMessage = "Welcome to your Biblioteca- your stop for all your library needs!";
 
     public String welcomeMessage(){
@@ -29,6 +31,17 @@ public class BibliotecaApp {
         return books;
 
     }
+//    public ArrayList<Movie>  createBookList(){
+//        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
+//        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
+//        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+//        movies.add(movie1);
+//        movies.add(movie2);
+//        movies.add(movie3);
+//
+//        return movies;
+//
+//    }
 
     public void displayBookList(){
         createBookList();
@@ -73,6 +86,17 @@ public class BibliotecaApp {
             System.out.println("Sorry, that book is not in our library catalog.");
         }
         return bookToCheckin;
+    }
+
+    public boolean checkIfLibraryMovie(String movieToCheck){
+        for (Movie movie : movies){
+            if (movie.getTitle().equals(movieToCheck)){
+                isALibraryMovie = true;
+            } else {
+                isALibraryMovie = false;
+            }
+        }
+        return isALibraryMovie;
     }
 
     public void menu() {
