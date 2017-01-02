@@ -35,6 +35,10 @@ public class BibliotecaApp {
         System.out.println(books);
     }
 
+    public boolean getIsALibraryBook(){
+        return isALibraryBook;
+    }
+
     public String checkoutBook(String bookToCheckout){
         createBookList();
         for (Book book : books) {
@@ -52,6 +56,7 @@ public class BibliotecaApp {
         if(!isALibraryBook) {
             System.out.println("Sorry, that book is not in our library catalog. Please try another.");
         }
+        System.out.println(isALibraryBook);
         return bookToCheckout;
     }
 
