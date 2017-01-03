@@ -31,17 +31,17 @@ public class BibliotecaApp {
         return books;
 
     }
-//    public ArrayList<Movie>  createBookList(){
-//        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
-//        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
-//        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
-//        movies.add(movie1);
-//        movies.add(movie2);
-//        movies.add(movie3);
-//
-//        return movies;
-//
-//    }
+    public ArrayList<Movie>  createMovieList(){
+        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+        movies.add(movie1);
+        movies.add(movie2);
+        movies.add(movie3);
+
+        return movies;
+
+    }
 
     public void displayBookList(){
         createBookList();
@@ -89,14 +89,51 @@ public class BibliotecaApp {
     }
 
     public boolean checkIfLibraryMovie(String movieToCheck){
+        createMovieList();
         for (Movie movie : movies){
             if (movie.getTitle().equals(movieToCheck)){
                 isALibraryMovie = true;
-            } else {
-                isALibraryMovie = false;
             }
         }
         return isALibraryMovie;
+    }
+
+    public String checkoutMovie(String movieToCheckout){
+        createMovieList();
+        for (Movie movie : movies){
+            if (checkIfLibraryMovie(movieToCheckout)) {
+                if( movie.getCheckedIn()) {
+                    movie.setCheckedIn(false);
+                    System.out.println(movie.getCheckedIn() + "You've checked out the movie!");
+                } else {
+                    System.out.println("This movie is currently checked out!");
+                }
+                break;
+            }
+            if(!isALibraryMovie) {
+                System.out.println("This movie is not in our catalog!");
+            }
+        }
+        return movieToCheckout;
+    }
+
+    public String returnMovie(String movieToReturn){
+        createMovieList();
+        for (Movie movie : movies){
+            if (checkIfLibraryMovie(movieToReturn)) {
+                if( !movie.getCheckedIn()) {
+                    movie.setCheckedIn(true);
+                    System.out.println("Thank you for returning the movie!");
+                } else {
+                    System.out.println("This movie wasn't checkedout!");
+                }
+                break;
+            }
+            if(!isALibraryMovie) {
+                System.out.println("This movie is not in our catalog!");
+            }
+        }
+        return movieToReturn;
     }
 
     public void menu() {

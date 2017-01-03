@@ -20,8 +20,25 @@ public class Movie
         return title;
     }
 
+    public String getDirector(){
+        return director;
+    }
+
+    public int getYear(){
+        return year;
+    }
+
     public boolean getCheckedIn(){
         return checkedIn;
+    }
+
+    public void setCheckedIn(boolean checkedIn){
+        this.checkedIn = checkedIn;
+    }
+
+    @Override
+    public String toString(){
+        return "\n Movie title: " + this.getTitle() + " Director: " + this.getDirector() + " Year Published: " + this.getYear()+ "\n";
     }
 
 }

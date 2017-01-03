@@ -115,16 +115,16 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCheckIfMovieIsInMovieList() {
-        ArrayList<Movie> movies = new ArrayList<Movie>();
-        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
-        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
-        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
-        movies.add(movie1);
-        movies.add(movie2);
-        movies.add(movie3);
+//        ArrayList<Movie> movies = new ArrayList<Movie>();
+//        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
+//        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
+//        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+//        movies.add(movie1);
+//        movies.add(movie2);
+//        movies.add(movie3);
 
         assertFalse(library.checkIfLibraryMovie("When Harry Met Sally"));
-        assertTrue(library.checkIfLibraryMovie("Frozen"));
+        assertTrue(library.checkIfLibraryMovie("Barry"));
     }
 
     @Test
@@ -143,19 +143,42 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCheckOutMovieAndReturnMovieAndSetCheckedInToFalse() {
-        libary.checkoutMovie("The Little Mermaid");
+        ArrayList<Movie> movies = library.createMovieList();
 
-        assertFalse(movieList(2).getCheckedIn());
-        assertEquals(movieList(2), "The Little Mermaid");
+        library.checkoutMovie("Barry");
 
+        assertEquals(false, movies.get(0).getCheckedIn());
     }
 
     @Test
     public void shouldCheckInMovieAndReturnMovieAndSetCheckedInToTrue(){
-        library.checkinMovie("The Little Mermaid");
+        ArrayList<Movie> movies = library.createMovieList();
 
-        assertTrue(movieList(2).getCheckedIn());
-        assertEquals(movieList(2), "The Little Mermaid");
+        library.returnMovie("The Little Mermaid");
+
+        assertTrue(movies.get(2).getCheckedIn());
+        assertEquals(movies.get(2).getTitle(), "The Little Mermaid");
+
+    }
+
+    @Test
+    public void shouldCreateANewUser(){
+
+
+    }
+
+    @Test
+    public void shouldLoginAUser(){
+
+    }
+
+    @Test
+    public void shouldShowErrorMessageIfIncorrectLogin(){
+
+    }
+
+    @Test
+    public void shouldDisplayUserInformation(){
 
     }
 
