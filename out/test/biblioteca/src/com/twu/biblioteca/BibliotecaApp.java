@@ -8,8 +8,11 @@ public class BibliotecaApp {
 
     private ArrayList<Book> books = new ArrayList<Book>();
     private ArrayList<Movie> movies = new ArrayList<Movie>();
+    private ArrayList<User> users = new ArrayList<User>();
+
     private boolean isALibraryBook;
     private boolean isALibraryMovie;
+    private String userInfo;
     private String welcomeMessage = "Welcome to your Biblioteca- your stop for all your library needs!";
 
     public String welcomeMessage(){
@@ -134,6 +137,17 @@ public class BibliotecaApp {
             }
         }
         return movieToReturn;
+    }
+
+    public User retrieveUser(int libraryNumber){
+        return users.get(libraryNumber);
+    }
+
+    public String displayUserInformation(int libaryNumber){
+        User user = retrieveUser(libaryNumber);
+        userInfo = user.getName() + " " + user.getEmail() + " " + user.getPhone();
+        System.out.println(userInfo);
+        return userInfo;
     }
 
     public void menu() {

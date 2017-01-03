@@ -155,17 +155,27 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCreateANewUser(){
-        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "LIB-2016", "Thoughtworks2016");
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
 
         assertEquals(user.getName(), "Katrina");
 
     }
 
     @Test
-    public void shouldDisplayUserInformation(){
-        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "LIB-2016", "Thoughtworks2016");
+    public void shouldLoginTheUser(){
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
 
-        assertEquals(user.displayUserInformation(), "Katrina katrinamarielee@gmail.com 0451289109");
+        library.login(user.getName(), user.getPassword());
+
+        assertTrue(user.getloggedIn());
+
+    }
+
+    @Test
+    public void shouldDisplayUserInformation(){
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
+
+        assertEquals(library.displayUserInformation(user.getLibaryNumber()), "Katrina katrinamarielee@gmail.com 0451289109");
 ;
     }
 

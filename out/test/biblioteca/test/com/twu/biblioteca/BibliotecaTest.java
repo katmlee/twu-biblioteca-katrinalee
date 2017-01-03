@@ -115,14 +115,6 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCheckIfMovieIsInMovieList() {
-//        ArrayList<Movie> movies = new ArrayList<Movie>();
-//        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
-//        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
-//        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
-//        movies.add(movie1);
-//        movies.add(movie2);
-//        movies.add(movie3);
-
         assertFalse(library.checkIfLibraryMovie("When Harry Met Sally"));
         assertTrue(library.checkIfLibraryMovie("Barry"));
     }
@@ -163,23 +155,18 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCreateANewUser(){
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
 
-
-    }
-
-    @Test
-    public void shouldLoginAUser(){
-
-    }
-
-    @Test
-    public void shouldShowErrorMessageIfIncorrectLogin(){
+        assertEquals(user.getName(), "Katrina");
 
     }
 
     @Test
     public void shouldDisplayUserInformation(){
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
 
+        assertEquals(library.displayUserInformation(user.getLibaryNumber()), "Katrina katrinamarielee@gmail.com 0451289109");
+;
     }
 
 }
