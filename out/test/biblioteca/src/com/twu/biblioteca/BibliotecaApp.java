@@ -46,6 +46,16 @@ public class BibliotecaApp {
 
     }
 
+    public ArrayList<User>  createUserList(){
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "123-2016", "Thoughtworks2016", false);
+
+        users.add(user);
+
+        return users;
+
+    }
+
+
     public void displayBookList(){
         createBookList();
         System.out.println(books);
@@ -72,7 +82,6 @@ public class BibliotecaApp {
         if(!isALibraryBook) {
             System.out.println("Sorry, that book is not in our library catalog. Please try another.");
         }
-        System.out.println(isALibraryBook);
         return bookToCheckout;
     }
 
@@ -139,15 +148,58 @@ public class BibliotecaApp {
         return movieToReturn;
     }
 
-    public User retrieveUser(int libraryNumber){
-        return users.get(libraryNumber);
+    public void addUser(User user) {
+        users.add(user);
     }
 
-    public String displayUserInformation(int libaryNumber){
-        User user = retrieveUser(libaryNumber);
-        userInfo = user.getName() + " " + user.getEmail() + " " + user.getPhone();
-        System.out.println(userInfo);
+    public User createUser(String name, String email, String phone, String libraryNumber, String password, boolean isLoggedIn) {
+        User user = new User(name, email, phone, libraryNumber, password, isLoggedIn);
+        addUser(user);
+        return user;
+    }
+
+    public String displayUserInformation(String libraryNumber){
+        for (User user : users) {
+            if (user.getLibraryNumber() == libraryNumber) {
+                userInfo = user.getName() + " " + user.getEmail() + " " + user.getPhone();
+                System.out.println(userInfo);
+            }
+        }
         return userInfo;
+    }
+
+    public String login(String libraryNumber, String password){
+        createUserList();
+        for (User user : users) {
+            if (user.getLibraryNumber().equals(libraryNumber)) {
+                if (user.getPassword().equals(password)) {
+                    user.setIsLoggedIn(true);
+                    menu();
+                } else {
+                    System.out.println("Password did not match. Try again!");
+                }
+            } else {
+                System.out.println("That is an invalid library number");
+            }
+        }
+        return libraryNumber;
+
+    }
+
+    public void initialLogin() {
+        String libraryNumberInput;
+        String passwordInput;
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("What is your library card number?");
+        libraryNumberInput = input.nextLine();
+
+        Scanner input2 = new Scanner(System.in);
+
+        System.out.println("What is your password?");
+        passwordInput = input2.nextLine();
+
+        this.login(libraryNumberInput, passwordInput);
     }
 
     public void menu() {
@@ -192,6 +244,6 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         BibliotecaApp guest = new BibliotecaApp();
         guest.welcomeMessage();
-        guest.menu();
+        guest.initialLogin();
     }
 }

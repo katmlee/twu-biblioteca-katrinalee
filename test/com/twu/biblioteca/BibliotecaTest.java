@@ -155,27 +155,28 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCreateANewUser(){
-        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
-
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "123-2016", "Thoughtworks2016", false);
         assertEquals(user.getName(), "Katrina");
 
     }
 
     @Test
     public void shouldLoginTheUser(){
-        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "123-2016", "Thoughtworks2016", false);
+        ArrayList<User> users = library.createUserList();
 
-        library.login(user.getName(), user.getPassword());
+        library.login(users.get(0).getLibraryNumber(), users.get(0).getPassword());
 
-        assertTrue(user.getloggedIn());
+        assertTrue(users.get(0).getIsLoggedIn());
 
     }
 
     @Test
     public void shouldDisplayUserInformation(){
-        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", 1232016, "Thoughtworks2016");
+        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "123-2016", "Thoughtworks2016", false);
+        ArrayList<User> users = library.createUserList();
 
-        assertEquals(library.displayUserInformation(user.getLibaryNumber()), "Katrina katrinamarielee@gmail.com 0451289109");
+        assertEquals(library.displayUserInformation(users.get(0).getLibraryNumber()), "Katrina katrinamarielee@gmail.com 0451289109");
 ;
     }
 

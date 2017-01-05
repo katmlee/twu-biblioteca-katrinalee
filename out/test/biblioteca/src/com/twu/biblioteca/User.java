@@ -7,15 +7,17 @@ public class User {
     private String name;
     private String email;
     private String phone;
-    private int libaryNumber;
+    private String libraryNumber;
     private String password;
+    private boolean isLoggedIn;
 
-    public User (String name, String email, String phone, int libaryNumber, String password){
+    public User (String name, String email, String phone, String libraryNumber, String password, boolean isLoggedIn){
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.libaryNumber = libaryNumber;
+        this.libraryNumber = libraryNumber;
         this.password = password;
+        this.isLoggedIn = isLoggedIn;
     }
 
     public String getName(){
@@ -30,21 +32,29 @@ public class User {
         return phone;
     }
 
-    public int getLibaryNumber(){
-        return libaryNumber;
+    public String getLibraryNumber(){
+        return libraryNumber;
     }
 
     public String getPassword(){
         return password;
     }
 
-    public void setLibaryNumber(int libaryNumber){
-        this.libaryNumber = libaryNumber;
+    public boolean getIsLoggedIn(){
+        return isLoggedIn;
+    }
+
+    public void setLibraryNumber(String libaryNumber){
+        this.libraryNumber = libaryNumber;
+    }
+
+    public void setIsLoggedIn(boolean isLoggedIn){
+        this.isLoggedIn = isLoggedIn;
     }
 
     @Override
     public String toString(){
-        return "\n User name: " + this.getName() + " Email: " + this.getEmail() + " Phone: " + this.getPhone()+ "\n";
+        return "\n User name: " + this.getName() + " Email: " + this.getEmail() + " Phone: " + this.getPhone()+ "Library Number: " + this.getLibraryNumber() + "Password " + this.getPassword() +"Logged In "+ this.getIsLoggedIn() +"\n";
     }
 
 }
