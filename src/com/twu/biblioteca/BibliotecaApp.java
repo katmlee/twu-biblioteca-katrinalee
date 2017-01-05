@@ -160,7 +160,7 @@ public class BibliotecaApp {
 
     public String displayUserInformation(String libraryNumber){
         for (User user : users) {
-            if (user.getLibraryNumber() == libraryNumber) {
+            if (user.getLibraryNumber().equals(libraryNumber)) {
                 userInfo = user.getName() + " " + user.getEmail() + " " + user.getPhone();
                 System.out.println(userInfo);
             }
@@ -211,7 +211,8 @@ public class BibliotecaApp {
         System.out.println("1 - Display list of books");
         System.out.println("2 - Check out book");
         System.out.println("3 - Return book");
-        System.out.println("4 - Quit");
+        System.out.println("4 - See User Information");
+        System.out.println("5 - Quit");
 
         selection = input.nextInt();
         switch(selection)
@@ -232,6 +233,11 @@ public class BibliotecaApp {
                 returnBook(bookToCheckin);
                 break;
             case 4:
+                System.out.println("What user would you like to look up? Please end the libary card number.");
+                Scanner libraryNumber = new Scanner(System.in);
+                String libraryNumberToLookUp = libraryNumber.nextLine();
+                displayUserInformation(libraryNumberToLookUp);
+            case 5:
                 System.out.println("-----------");
                 break;
             default:
