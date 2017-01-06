@@ -21,10 +21,10 @@ public class BibliotecaApp {
     }
 
     public ArrayList<Book>  createBookList(){
-        Book b1 = new Book("Head First Java", "Kathy Sierra", 2003, true);
-        Book b2 = new Book("Test-Driven Development", "Kent Beck", 2003, true);
-        Book b3 = new Book("Agile Fundamentals", "Someone", 2010, true);
-        Book b4 = new Book("Ruby Ninjas", "Joel", 1909, true);
+        Book b1 = new Book("Head First Java", "Kathy Sierra", 2003, true, "n/a");
+        Book b2 = new Book("Test-Driven Development", "Kent Beck", 2003, true, "n/a");
+        Book b3 = new Book("Agile Fundamentals", "Someone", 2010, true, "n/a");
+        Book b4 = new Book("Ruby Ninjas", "Joel", 1909, true, "n/a");
 
         books.add(b1);
         books.add(b2);
@@ -35,9 +35,9 @@ public class BibliotecaApp {
 
     }
     public ArrayList<Movie>  createMovieList(){
-        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
-        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
-        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, " ");
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false, " ");
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true, " ");
         movies.add(movie1);
         movies.add(movie2);
         movies.add(movie3);
@@ -65,13 +65,14 @@ public class BibliotecaApp {
         return isALibraryBook;
     }
 
-    public String checkoutBook(String bookToCheckout){
+    public String checkoutBook(String bookToCheckout, String libraryNumber){
         createBookList();
         for (Book book : books) {
             if (book.getTitle().contains(bookToCheckout)) {
                 isALibraryBook = true;
                 if(book.getCheckedIn()) {
                     book.setCheckedIn(false);
+                    book.setCheckedOutBy(libraryNumber);
                     System.out.println("Thanks for checking out " + bookToCheckout + ". Enjoy the book! ");
                 } else {
                     System.out.println("Sorry, this book is currently checked out.");
@@ -110,13 +111,14 @@ public class BibliotecaApp {
         return isALibraryMovie;
     }
 
-    public String checkoutMovie(String movieToCheckout){
+    public String checkoutMovie(String movieToCheckout, String libraryNumber){
         createMovieList();
         for (Movie movie : movies){
             if (checkIfLibraryMovie(movieToCheckout)) {
                 if( movie.getCheckedIn()) {
                     movie.setCheckedIn(false);
-                    System.out.println(movie.getCheckedIn() + "You've checked out the movie!");
+                    movie.setCheckedOutBy(libraryNumber);
+                    System.out.println("You've checked out the movie!");
                 } else {
                     System.out.println("This movie is currently checked out!");
                 }
@@ -174,7 +176,7 @@ public class BibliotecaApp {
             if (user.getLibraryNumber().equals(libraryNumber)) {
                 if (user.getPassword().equals(password)) {
                     user.setIsLoggedIn(true);
-                    menu();
+                    menu(libraryNumber);
                 } else {
                     System.out.println("Password did not match. Try again!");
                 }
@@ -202,8 +204,7 @@ public class BibliotecaApp {
         this.login(libraryNumberInput, passwordInput);
     }
 
-    public void menu() {
-
+    public void menu(String libraryNumber) {
         int selection;
         Scanner input = new Scanner(System.in);
 
@@ -211,8 +212,10 @@ public class BibliotecaApp {
         System.out.println("1 - Display list of books");
         System.out.println("2 - Check out book");
         System.out.println("3 - Return book");
-        System.out.println("4 - See User Information");
-        System.out.println("5 - Quit");
+        System.out.println("4 - Check out movie");
+        System.out.println("5 - Return movie");
+        System.out.println("6 - See User Information");
+        System.out.println("7 - Quit");
 
         selection = input.nextInt();
         switch(selection)
@@ -224,7 +227,7 @@ public class BibliotecaApp {
                 System.out.println("What book would you like to check out?");
                 Scanner bookName = new Scanner(System.in);
                 String bookToCheckOut = bookName.nextLine();
-                checkoutBook(bookToCheckOut);
+                checkoutBook(bookToCheckOut, libraryNumber);
                 break;
             case 3:
                 System.out.println("What book would you like to return?");
@@ -233,11 +236,25 @@ public class BibliotecaApp {
                 returnBook(bookToCheckin);
                 break;
             case 4:
-                System.out.println("What user would you like to look up? Please end the libary card number.");
-                Scanner libraryNumber = new Scanner(System.in);
-                String libraryNumberToLookUp = libraryNumber.nextLine();
-                displayUserInformation(libraryNumberToLookUp);
+                System.out.println("What movie would you like to check out?");
+                Scanner movieName = new Scanner(System.in);
+                String movieToCheckOut = movieName.nextLine();
+                checkoutMovie(movieToCheckOut, libraryNumber);
+                break;
             case 5:
+                System.out.println("What book would you like to return?");
+                Scanner movieReturn = new Scanner(System.in);
+                String movieToCheckin = movieReturn.nextLine();
+                returnMovie(movieToCheckin);
+                break;
+
+            case 6:
+                System.out.println("What user would you like to look up? Please end the libary card number.");
+                Scanner libraryNumberLookUp = new Scanner(System.in);
+                String libraryNumberToLookUp = libraryNumberLookUp.nextLine();
+                displayUserInformation(libraryNumberToLookUp);
+                break;
+            case 7:
                 System.out.println("-----------");
                 break;
             default:

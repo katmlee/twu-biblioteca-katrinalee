@@ -6,12 +6,14 @@ public class Book
     private String author;
     private int year;
     private boolean checkedIn;
+    private String checkedOutBy;
 
-    public Book(String title, String author, int year, boolean checkedIn) {
+    public Book(String title, String author, int year, boolean checkedIn, String checkedOutBy) {
         this.title = title;
         this.author = author;
         this.year = year;
         this.checkedIn = true;
+        this.checkedOutBy = checkedOutBy;
     }
 
     public void setCheckedIn(boolean checkedIn){
@@ -28,6 +30,14 @@ public class Book
     }
     public boolean getCheckedIn(){
         return checkedIn;
+    }
+
+    public String getCheckedOutBy(){
+        return checkedOutBy;
+    }
+
+    public void setCheckedOutBy(String checkedOutBy){
+        this.checkedOutBy = checkedOutBy;
     }
 
     @Override

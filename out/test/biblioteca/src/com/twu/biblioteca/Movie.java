@@ -7,13 +7,15 @@ public class Movie
     private String director;
     private String rating;
     private Boolean checkedIn;
+    private String checkedOutBy;
 
-    public Movie(String title, int year, String director, String rating, boolean checkedIn){
+    public Movie(String title, int year, String director, String rating, boolean checkedIn, String checkedOutBy){
         this.title = title;
         this.year = year;
         this.director = director;
         this.rating = rating;
         this.checkedIn = checkedIn;
+        this.checkedOutBy = checkedOutBy;
     }
 
     public String getTitle(){
@@ -30,6 +32,14 @@ public class Movie
 
     public boolean getCheckedIn(){
         return checkedIn;
+    }
+
+    public String getCheckedOutBy(){
+        return checkedOutBy;
+    }
+
+    public void setCheckedOutBy(String checkedOutBy){
+        this.checkedOutBy = checkedOutBy;
     }
 
     public void setCheckedIn(boolean checkedIn){

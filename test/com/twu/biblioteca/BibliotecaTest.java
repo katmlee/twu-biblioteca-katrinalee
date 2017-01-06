@@ -30,7 +30,7 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCreateNewBook() {
-        Book book = new Book("Help Me", "Gary Cook", 1990, true);
+        Book book = new Book("Help Me", "Gary Cook", 1990, true, "n/a");
 
         assertEquals(book.getTitle(), "Help Me");
     }
@@ -49,11 +49,11 @@ public class BibliotecaTest {
     public void shouldCheckIfBookExistsInSystem() {
         List<Book> bookList = library.createBookList();
 
-        library.checkoutBook("Java Masters");
+        library.checkoutBook("Java Masters", "123-2016");
 
         assertFalse(library.getIsALibraryBook());
 
-        library.checkoutBook("Head First Java");
+        library.checkoutBook("Head First Java", "123-2016");
 
         assertTrue(library.getIsALibraryBook());
     }
@@ -64,7 +64,7 @@ public class BibliotecaTest {
 
         assertTrue(bookList.get(0).getCheckedIn());
 
-        library.checkoutBook("Head First Java");
+        library.checkoutBook("Head First Java", "123-2016");
 
         assertFalse(bookList.get(0).getCheckedIn());
 
@@ -74,7 +74,7 @@ public class BibliotecaTest {
     public void shouldSetBookToCheckedOutAndReturnBook() {
         List<Book> bookList = library.createBookList();
 
-        library.checkoutBook("Head First Java");
+        library.checkoutBook("Head First Java", "123-2016");
 
         assertFalse(bookList.get(0).getCheckedIn());
     }
@@ -91,7 +91,7 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCreateNewMovie() {
-        Movie movie = new Movie("Barry", 2016, "Jon Siegal", "8", true);
+        Movie movie = new Movie("Barry", 2016, "Jon Siegal", "8", true, "n/a");
 
         assertEquals(movie.getTitle(), "Barry");
 
@@ -101,9 +101,9 @@ public class BibliotecaTest {
     public void shouldPrintOutListOfMovies() {
         ArrayList<Movie> movies = new ArrayList<Movie>();
 
-        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
-        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
-        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, "n/a");
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false, "n/a");
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true, "n/a");
         movies.add(movie1);
         movies.add(movie2);
         movies.add(movie3);
@@ -122,9 +122,9 @@ public class BibliotecaTest {
     @Test
     public void shouldCheckIfMovieIsCheckedIn() {
         ArrayList<Movie> movies = new ArrayList<Movie>();
-        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true);
-        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false);
-        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true);
+        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, "123-2016");
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false, "123-2016");
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true, "123-2016");
         movies.add(movie1);
         movies.add(movie2);
         movies.add(movie3);
@@ -137,7 +137,7 @@ public class BibliotecaTest {
     public void shouldCheckOutMovieAndReturnMovieAndSetCheckedInToFalse() {
         ArrayList<Movie> movies = library.createMovieList();
 
-        library.checkoutMovie("Barry");
+        library.checkoutMovie("Barry", "123-2016");
 
         assertEquals(false, movies.get(0).getCheckedIn());
     }
