@@ -57,7 +57,7 @@ public class BibliotecaApp {
 
 
     public void displayBookList(){
-        createBookList();
+//        createBookList();
         System.out.println(books);
     }
 
@@ -66,7 +66,6 @@ public class BibliotecaApp {
     }
 
     public String checkoutBook(String bookToCheckout, String libraryNumber){
-        createBookList();
         for (Book book : books) {
             if (book.getTitle().contains(bookToCheckout)) {
                 isALibraryBook = true;
@@ -87,7 +86,6 @@ public class BibliotecaApp {
     }
 
     public String returnBook(String bookToCheckin){
-        createBookList();
         for (Book book : books) {
             if (book.getTitle().equals(bookToCheckin)) {
                 isALibraryBook = true;
@@ -102,7 +100,6 @@ public class BibliotecaApp {
     }
 
     public boolean checkIfLibraryMovie(String movieToCheck){
-        createMovieList();
         for (Movie movie : movies){
             if (movie.getTitle().equals(movieToCheck)){
                 isALibraryMovie = true;
@@ -112,7 +109,6 @@ public class BibliotecaApp {
     }
 
     public String checkoutMovie(String movieToCheckout, String libraryNumber){
-        createMovieList();
         for (Movie movie : movies){
             if (checkIfLibraryMovie(movieToCheckout)) {
                 if( movie.getCheckedIn()) {
@@ -132,7 +128,6 @@ public class BibliotecaApp {
     }
 
     public String returnMovie(String movieToReturn){
-        createMovieList();
         for (Movie movie : movies){
             if (checkIfLibraryMovie(movieToReturn)) {
                 if( !movie.getCheckedIn()) {
@@ -267,6 +262,8 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         BibliotecaApp guest = new BibliotecaApp();
         guest.welcomeMessage();
+        guest.createBookList();
+        guest.createMovieList();
         guest.initialLogin();
     }
 }
