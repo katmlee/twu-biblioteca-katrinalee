@@ -7,13 +7,13 @@ import java.util.*;
 public class BibliotecaApp {
 
     private ArrayList<Book> books = new ArrayList<Book>();
-    private ArrayList<Movie> movies = new ArrayList<Movie>();
+    private static ArrayList<Movie> movies = new ArrayList<Movie>();
     private ArrayList<User> users = new ArrayList<User>();
 
     private boolean isALibraryBook;
     private boolean isALibraryMovie;
     private String userInfo;
-    private String welcomeMessage = "Welcome to your Biblioteca- your stop for all your library needs!";
+    private String welcomeMessage = "Welcome to Biblioteca- your stop for all your library needs!";
 
     public String welcomeMessage(){
         System.out.println(welcomeMessage);
@@ -34,7 +34,7 @@ public class BibliotecaApp {
         return books;
 
     }
-    public ArrayList<Movie>  createMovieList(){
+    public static ArrayList<Movie>  createMovieList(){
         Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, " ");
         Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false, " ");
         Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true, " ");
@@ -57,7 +57,6 @@ public class BibliotecaApp {
 
 
     public void displayBookList(){
-//        createBookList();
         System.out.println(books);
     }
 
