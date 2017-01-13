@@ -12,7 +12,7 @@ public class Book
         this.title = title;
         this.author = author;
         this.year = year;
-        this.checkedIn = true;
+        this.checkedIn = checkedIn;
         this.checkedOutBy = checkedOutBy;
     }
 
@@ -42,6 +42,6 @@ public class Book
 
     @Override
     public String toString(){
-        return "\n Book title: " + this.getTitle() + " Author: " + this.getAuthor() + " Year Published: " + this.getYear()+ "\n";
+        return "\n Book title: " + this.getTitle() + " Author: " + this.getAuthor() + " Year Published: " + this.getYear()+ this.getCheckedIn()+ "\n";
     }
 }

@@ -24,7 +24,7 @@ public class BibliotecaApp {
         Book b1 = new Book("Head First Java", "Kathy Sierra", 2003, true, "n/a");
         Book b2 = new Book("Test-Driven Development", "Kent Beck", 2003, true, "n/a");
         Book b3 = new Book("Agile Fundamentals", "Someone", 2010, true, "n/a");
-        Book b4 = new Book("Ruby Ninjas", "Joel", 1909, true, "n/a");
+        Book b4 = new Book("Ruby Ninjas", "Joel", 1909, false, "n/a");
 
         books.add(b1);
         books.add(b2);
@@ -36,8 +36,8 @@ public class BibliotecaApp {
     }
     public static ArrayList<Movie>  createMovieList(){
         Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, " ");
-        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false, " ");
-        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", true, " ");
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", true, " ");
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", false, " ");
         movies.add(movie1);
         movies.add(movie2);
         movies.add(movie3);
@@ -60,14 +60,22 @@ public class BibliotecaApp {
         System.out.println(books);
     }
 
-    public boolean getIsALibraryBook(){
+    public void displayMovieList(){
+        System.out.println(movies);
+    }
+
+    public boolean checkIfLibraryBook(String bookToCheck){
+        for (Book book : books){
+            if (book.getTitle().equals(bookToCheck)){
+                isALibraryBook = true;
+            }
+        }
         return isALibraryBook;
     }
 
     public String checkoutBook(String bookToCheckout, String libraryNumber){
         for (Book book : books) {
-            if (book.getTitle().contains(bookToCheckout)) {
-                isALibraryBook = true;
+            if (checkIfLibraryBook(bookToCheckout)) {
                 if(book.getCheckedIn()) {
                     book.setCheckedIn(false);
                     book.setCheckedOutBy(libraryNumber);
@@ -84,18 +92,23 @@ public class BibliotecaApp {
         return bookToCheckout;
     }
 
-    public String returnBook(String bookToCheckin){
-        for (Book book : books) {
-            if (book.getTitle().equals(bookToCheckin)) {
-                isALibraryBook = true;
-                book.setCheckedIn(true);
-                System.out.println("Thank you for returning the book!");
+    public String returnBook(String bookToReturn){
+        for (Book book : books){
+            if (checkIfLibraryBook(bookToReturn)) {
+                if( !book.getCheckedIn()) {
+                    book.setCheckedIn(true);
+                    book.setCheckedOutBy("n/a");
+                    System.out.println("Thank you for returning the book!");
+                } else {
+                    System.out.println("This book wasn't checked out!");
+                }
+                break;
+            }
+            if(!isALibraryBook) {
+                System.out.println("This book is not in our catalog!");
             }
         }
-        if(!isALibraryBook) {
-            System.out.println("Sorry, that book is not in our library catalog.");
-        }
-        return bookToCheckin;
+        return bookToReturn;
     }
 
     public boolean checkIfLibraryMovie(String movieToCheck){
@@ -131,9 +144,10 @@ public class BibliotecaApp {
             if (checkIfLibraryMovie(movieToReturn)) {
                 if( !movie.getCheckedIn()) {
                     movie.setCheckedIn(true);
+                    movie.setCheckedOutBy("n/a");
                     System.out.println("Thank you for returning the movie!");
                 } else {
-                    System.out.println("This movie wasn't checkedout!");
+                    System.out.println("This movie wasn't checked out!");
                 }
                 break;
             }
@@ -206,10 +220,11 @@ public class BibliotecaApp {
         System.out.println("1 - Display list of books");
         System.out.println("2 - Check out book");
         System.out.println("3 - Return book");
-        System.out.println("4 - Check out movie");
-        System.out.println("5 - Return movie");
-        System.out.println("6 - See User Information");
-        System.out.println("7 - Quit");
+        System.out.println("4 - Display list of movies");
+        System.out.println("5 - Check out movie");
+        System.out.println("6 - Return movie");
+        System.out.println("7 - See User Information");
+        System.out.println("8 - Quit");
 
         selection = input.nextInt();
         switch(selection)
@@ -230,25 +245,28 @@ public class BibliotecaApp {
                 returnBook(bookToCheckin);
                 break;
             case 4:
+                displayMovieList();
+                break;
+            case 5:
                 System.out.println("What movie would you like to check out?");
                 Scanner movieName = new Scanner(System.in);
                 String movieToCheckOut = movieName.nextLine();
                 checkoutMovie(movieToCheckOut, libraryNumber);
                 break;
-            case 5:
+            case 6:
                 System.out.println("What book would you like to return?");
                 Scanner movieReturn = new Scanner(System.in);
                 String movieToCheckin = movieReturn.nextLine();
                 returnMovie(movieToCheckin);
                 break;
 
-            case 6:
+            case 7:
                 System.out.println("What user would you like to look up? Please end the libary card number.");
                 Scanner libraryNumberLookUp = new Scanner(System.in);
                 String libraryNumberToLookUp = libraryNumberLookUp.nextLine();
                 displayUserInformation(libraryNumberToLookUp);
                 break;
-            case 7:
+            case 8:
                 System.out.println("-----------");
                 break;
             default:
@@ -263,6 +281,7 @@ public class BibliotecaApp {
         guest.welcomeMessage();
         guest.createBookList();
         guest.createMovieList();
+        System.out.println(guest.movies);
         guest.initialLogin();
     }
 }

@@ -4,9 +4,12 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.*;
 import org.junit.Test;
+
+
 
 import java.util.*;
 
@@ -60,13 +63,9 @@ public class BibliotecaTest {
     @Test
     public void shouldCheckIfBookExistsInSystem() {
 
-        library.checkoutBook("Java Masters", "123-2016");
+        assertFalse(library.checkIfLibraryBook("Java Masters"));
 
-        assertFalse(library.getIsALibraryBook());
-
-        library.checkoutBook("Head First Java", "123-2016");
-
-        assertTrue(library.getIsALibraryBook());
+        assertTrue(library.checkIfLibraryBook("Head First Java"));
     }
 
     @Test
@@ -162,11 +161,15 @@ public class BibliotecaTest {
 //    public void shouldLoginTheUser(){
 //        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "123-2016", "Thoughtworks2016", false);
 //        ArrayList<User> users = library.createUserList();
-//        int input = 6;
-//        InputStream variable = System.in;
-//        System.setIn(input);
-//
-//        Scanner scanner = new Scanner(System.in);
+//        String data = 6;
+//        InputStream input = System.in;
+//        try {
+//            System.setIn(new ByteArrayInputStream(data.getBytes()));
+//            Scanner scanner = new Scanner(System.in);
+//            System.out.println(scanner.nextLine());
+//        } finally {
+//            System.setIn(input);
+//        }
 //        library.login(users.get(0).getLibraryNumber(), users.get(0).getPassword());
 //
 //        assertTrue(users.get(0).getIsLoggedIn());

@@ -48,7 +48,7 @@ public class Movie
 
     @Override
     public String toString(){
-        return "\n Movie title: " + this.getTitle() + " Director: " + this.getDirector() + " Year Published: " + this.getYear()+ "\n";
+        return "\n Movie title: " + this.getTitle() + " Director: " + this.getDirector() + " Year Published: " + this.getYear()+ this.getCheckedIn() + "\n";
     }
 
 }
