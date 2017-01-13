@@ -281,7 +281,6 @@ public class BibliotecaApp {
         guest.welcomeMessage();
         guest.createBookList();
         guest.createMovieList();
-        System.out.println(guest.movies);
         guest.initialLogin();
     }
 }
