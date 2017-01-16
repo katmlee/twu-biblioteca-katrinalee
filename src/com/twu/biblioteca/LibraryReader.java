@@ -7,6 +7,9 @@ import java.util.Scanner;
  * Created by klee on 13/1/17.
  */
 public class LibraryReader {
+
+    private InputStream systemIn;
+
     public String getReading(String prompt){
         String userInput = null;
         System.out.print(prompt);

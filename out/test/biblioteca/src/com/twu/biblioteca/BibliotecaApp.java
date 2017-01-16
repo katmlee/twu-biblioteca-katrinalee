@@ -6,10 +6,21 @@ import java.util.*;
 
 public class BibliotecaApp {
 
-    private ArrayList<Book> books = new ArrayList<Book>();
+    public BibliotecaApp(ArrayList<Book> books, ArrayList<Movie> movies, LibraryReader libraryReader){
+        this.books = books;
+        this.movies = movies;
+        this.libraryReader = libraryReader;
+    }
+
+    public LibraryReader getLibraryReader() {
+        return libraryReader;
+    }
+
+    private final LibraryReader libraryReader;
+
+    private static ArrayList<Book> books = new ArrayList<Book>();
     private static ArrayList<Movie> movies = new ArrayList<Movie>();
     private ArrayList<User> users = new ArrayList<User>();
-    LibraryReader libraryReader = new LibraryReader();
 
 
     private boolean isALibraryBook;
@@ -22,7 +33,7 @@ public class BibliotecaApp {
         return welcomeMessage;
     }
 
-    public ArrayList<Book>  createBookList(){
+    public static ArrayList<Book>  createBookList(){
         Book b1 = new Book("Head First Java", "Kathy Sierra", 2003, true, "n/a");
         Book b2 = new Book("Test-Driven Development", "Kent Beck", 2003, true, "n/a");
         Book b3 = new Book("Agile Fundamentals", "Someone", 2010, true, "n/a");
@@ -37,9 +48,9 @@ public class BibliotecaApp {
 
     }
     public static ArrayList<Movie>  createMovieList(){
-        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, " ");
+        Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, "n/a");
         Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false,  "n/a");
-        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", false, " ");
+        Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", false, "n/a");
         movies.add(movie1);
         movies.add(movie2);
         movies.add(movie3);
@@ -144,7 +155,7 @@ public class BibliotecaApp {
     public String returnMovie(String movieToReturn){
         for (Movie movie : movies){
             if (checkIfLibraryMovie(movieToReturn)) {
-                if( !movie.getCheckedIn()) {
+                if(!movie.getCheckedIn()) {
                     movie.setCheckedIn(true);
                     movie.setCheckedOutBy("n/a");
                     System.out.println("Thank you for returning the movie!");
@@ -198,6 +209,8 @@ public class BibliotecaApp {
 
     }
 
+
+
     public void initialLogin() {
 
         String libraryNumberInput = libraryReader.getReading("What is your library card number? ");
@@ -249,8 +262,10 @@ public class BibliotecaApp {
     }
 
     public static void main(String[] args) {
-        BibliotecaApp guest = new BibliotecaApp();
-//        BibliotecaApp guest = new BibliotecaApp(createBookList(), createMovieList());
+        LibraryReader libraryReader = new LibraryReader();
+        ArrayList<Book> books = new ArrayList<Book>();
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        BibliotecaApp guest = new BibliotecaApp(books, movies, libraryReader);
         guest.welcomeMessage();
         guest.createBookList();
         guest.createMovieList();
