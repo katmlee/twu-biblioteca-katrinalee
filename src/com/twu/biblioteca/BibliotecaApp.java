@@ -9,6 +9,8 @@ public class BibliotecaApp {
     private ArrayList<Book> books = new ArrayList<Book>();
     private static ArrayList<Movie> movies = new ArrayList<Movie>();
     private ArrayList<User> users = new ArrayList<User>();
+    LibraryReader libraryReader = new LibraryReader();
+
 
     private boolean isALibraryBook;
     private boolean isALibraryMovie;
@@ -36,7 +38,7 @@ public class BibliotecaApp {
     }
     public static ArrayList<Movie>  createMovieList(){
         Movie movie1 = new Movie("Barry", 2016, "Jon Siegal", "8", true, " ");
-        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", true, " ");
+        Movie movie2 = new Movie("Frozen", 2013, "Disney", "10", false,  "n/a");
         Movie movie3 = new Movie("The Little Mermaid", 1989, "Harold Star", "7", false, " ");
         movies.add(movie1);
         movies.add(movie2);
@@ -197,73 +199,43 @@ public class BibliotecaApp {
     }
 
     public void initialLogin() {
-        String libraryNumberInput;
-        String passwordInput;
-        Scanner input = new Scanner(System.in);
 
-        System.out.println("What is your library card number?");
-        libraryNumberInput = input.nextLine();
-
-        Scanner input2 = new Scanner(System.in);
-
-        System.out.println("What is your password?");
-        passwordInput = input2.nextLine();
+        String libraryNumberInput = libraryReader.getReading("What is your library card number? ");
+        String passwordInput = libraryReader.getReading("What is your password? ");
 
         this.login(libraryNumberInput, passwordInput);
     }
 
     public void menu(String libraryNumber) {
-        int selection;
-        Scanner input = new Scanner(System.in);
+        int selection = Integer.parseInt(libraryReader.getReading("Choose from these options:\n 1 - Display list of books \n 2 - Check out book \n 3 - Return book \n 4 - Display list of movies \n 5 - Check out movie \n 6 - Return movie \n 7 - See User Information \n 8 - Quit \n"));
 
-        System.out.println("Choose from these options:");
-        System.out.println("1 - Display list of books");
-        System.out.println("2 - Check out book");
-        System.out.println("3 - Return book");
-        System.out.println("4 - Display list of movies");
-        System.out.println("5 - Check out movie");
-        System.out.println("6 - Return movie");
-        System.out.println("7 - See User Information");
-        System.out.println("8 - Quit");
-
-        selection = input.nextInt();
         switch(selection)
         {
             case 1:
                 displayBookList();
                 break;
             case 2:
-                System.out.println("What book would you like to check out?");
-                Scanner bookName = new Scanner(System.in);
-                String bookToCheckOut = bookName.nextLine();
+                String bookToCheckOut = libraryReader.getReading("What book would you like to check out? ");
                 checkoutBook(bookToCheckOut, libraryNumber);
                 break;
             case 3:
-                System.out.println("What book would you like to return?");
-                Scanner bookReturn = new Scanner(System.in);
-                String bookToCheckin = bookReturn.nextLine();
+                String bookToCheckin = libraryReader.getReading("What book would you like to return? ");
                 returnBook(bookToCheckin);
                 break;
             case 4:
                 displayMovieList();
                 break;
             case 5:
-                System.out.println("What movie would you like to check out?");
-                Scanner movieName = new Scanner(System.in);
-                String movieToCheckOut = movieName.nextLine();
+                String movieToCheckOut = libraryReader.getReading("What movie would you like to check out? ");
                 checkoutMovie(movieToCheckOut, libraryNumber);
                 break;
             case 6:
-                System.out.println("What book would you like to return?");
-                Scanner movieReturn = new Scanner(System.in);
-                String movieToCheckin = movieReturn.nextLine();
+                String movieToCheckin = libraryReader.getReading("What book would you like to return? ");
                 returnMovie(movieToCheckin);
                 break;
 
             case 7:
-                System.out.println("What user would you like to look up? Please end the libary card number.");
-                Scanner libraryNumberLookUp = new Scanner(System.in);
-                String libraryNumberToLookUp = libraryNumberLookUp.nextLine();
+                String libraryNumberToLookUp = libraryReader.getReading("What user would you like to look up? Please end the libary card number. ");
                 displayUserInformation(libraryNumberToLookUp);
                 break;
             case 8:
@@ -278,6 +250,7 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         BibliotecaApp guest = new BibliotecaApp();
+//        BibliotecaApp guest = new BibliotecaApp(createBookList(), createMovieList());
         guest.welcomeMessage();
         guest.createBookList();
         guest.createMovieList();
