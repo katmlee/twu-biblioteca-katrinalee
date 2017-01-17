@@ -17,12 +17,13 @@ public class BibliotecaTest {
     private BibliotecaApp library;
     private ArrayList<Book> books;
     private ArrayList<Movie> movies;
-    private LibraryReader libraryReader;
+//    private LibraryReader libraryReader;
 
     @Before
     public void setUp() {
         books = new ArrayList<Book>();
         movies = new ArrayList<Movie>();
+        LibraryReader libraryReader = new LibraryReader(System.in);
         library = new BibliotecaApp(books, movies, libraryReader);
         library.createBookList();
         library.createMovieList();
@@ -165,17 +166,21 @@ public class BibliotecaTest {
 //    public void shouldLoginTheUser(){
 //        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "123-2016", "Thoughtworks2016", false);
 //        ArrayList<User> users = library.createUserList();
-//        LibraryReader libraryReader = new LibraryReader();
-//
+//        LibraryReader libraryReader;
 //        String data = "6";
 //        InputStream input = System.in;
 //        try {
 //            System.setIn(new ByteArrayInputStream(data.getBytes()));
-//            Scanner scanner = new Scanner(System.in);
-//            System.out.println(scanner.nextLine());
+//            libraryReader = new LibraryReader(System.in);
+//            System.out.println(data);
 //        } finally {
 //            System.setIn(input);
 //        }
+////        LibraryReader libraryReader = new LibraryReader(System.in);
+//        library = new BibliotecaApp(books, movies, libraryReader);
+//        library.createBookList();
+//        library.createMovieList();
+//
 //        library.login(users.get(0).getLibraryNumber(), users.get(0).getPassword());
 //
 //        assertTrue(users.get(0).getIsLoggedIn());

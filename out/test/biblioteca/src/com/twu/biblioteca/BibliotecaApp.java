@@ -16,7 +16,7 @@ public class BibliotecaApp {
         return libraryReader;
     }
 
-    private final LibraryReader libraryReader;
+    private static LibraryReader libraryReader;
 
     private static ArrayList<Book> books = new ArrayList<Book>();
     private static ArrayList<Movie> movies = new ArrayList<Movie>();
@@ -262,9 +262,13 @@ public class BibliotecaApp {
     }
 
     public static void main(String[] args) {
-        LibraryReader libraryReader = new LibraryReader();
-        ArrayList<Book> books = new ArrayList<Book>();
-        ArrayList<Movie> movies = new ArrayList<Movie>();
+        LibraryReader libraryReader = new LibraryReader(System.in);
+//        ArrayList<Book> books = new ArrayList<Book>();
+//        Book b1 = new Book("Lala Land", "Kathy Sierra", 2003, true, "n/a");
+//        Book b2 = new Book("In Love", "Kent Beck", 2003, true, "n/a");
+//        books.add(b1);
+//        books.add(b2);
+//        ArrayList<Movie> movies = new ArrayList<Movie>();
         BibliotecaApp guest = new BibliotecaApp(books, movies, libraryReader);
         guest.welcomeMessage();
         guest.createBookList();

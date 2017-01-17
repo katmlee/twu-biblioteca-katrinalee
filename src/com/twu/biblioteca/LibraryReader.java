@@ -10,6 +10,10 @@ public class LibraryReader {
 
     private InputStream systemIn;
 
+    public LibraryReader(InputStream in){
+        systemIn = in;
+    };
+
     public String getReading(String prompt){
         String userInput = null;
         System.out.print(prompt);
