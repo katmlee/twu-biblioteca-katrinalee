@@ -1,7 +1,8 @@
 package com.twu.biblioteca;
 
-public class Movie
+public class Movie implements LibraryItem
 {
+
     private String title;
     private int year;
     private String director;

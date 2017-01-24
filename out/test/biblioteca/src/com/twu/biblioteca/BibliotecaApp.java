@@ -6,9 +6,14 @@ import java.util.*;
 
 public class BibliotecaApp {
 
+    private final ArrayList<LibraryItem> libraryItems;
+
     public BibliotecaApp(ArrayList<Book> books, ArrayList<Movie> movies, LibraryReader libraryReader){
         this.books = books;
         this.movies = movies;
+        this.libraryItems = new ArrayList<LibraryItem>();
+        this.libraryItems.addAll(books);
+        this.libraryItems.addAll(movies);
         this.libraryReader = libraryReader;
     }
 
@@ -20,10 +25,10 @@ public class BibliotecaApp {
 
     private static ArrayList<Book> books = new ArrayList<Book>();
     private static ArrayList<Movie> movies = new ArrayList<Movie>();
-    private ArrayList<User> users = new ArrayList<User>();
+    private static ArrayList<User> users = new ArrayList<User>();
 
 
-    private boolean isALibraryBook;
+    private boolean isALibraryItem;
     private boolean isALibraryMovie;
     private String userInfo;
     private String welcomeMessage = "Welcome to Biblioteca- your stop for all your library needs!";
@@ -77,98 +82,51 @@ public class BibliotecaApp {
         System.out.println(movies);
     }
 
-    public boolean checkIfLibraryBook(String bookToCheck){
-        for (Book book : books){
-            if (book.getTitle().equals(bookToCheck)){
-                isALibraryBook = true;
+    public boolean checkIfLibraryItem(String itemToCheck){
+        for (LibraryItem item : libraryItems){
+            if (item.getTitle().equals(itemToCheck)){
+                isALibraryItem = true;
             }
         }
-        return isALibraryBook;
+        return isALibraryItem;
     }
 
-    public String checkoutBook(String bookToCheckout, String libraryNumber){
-        for (Book book : books) {
-            if (checkIfLibraryBook(bookToCheckout)) {
-                if(book.getCheckedIn()) {
-                    book.setCheckedIn(false);
-                    book.setCheckedOutBy(libraryNumber);
-                    System.out.println("Thanks for checking out " + bookToCheckout + ". Enjoy the book! ");
+    public String checkoutItem(String itemToCheckout, String libraryNumber, ItemType itemType){
+        for (LibraryItem item : libraryItems) {
+            if (checkIfLibraryItem(itemToCheckout)) {
+                if(item.getCheckedIn()) {
+                    item.setCheckedIn(false);
+                    item.setCheckedOutBy(libraryNumber);
+                    System.out.println("Thanks for checking out " + itemToCheckout + ".");
                 } else {
-                    System.out.println("Sorry, this book is currently checked out.");
+                    System.out.println("Sorry, this library item is currently checked out.");
                 }
                 break;
             }
         }
-        if(!isALibraryBook) {
-            System.out.println("Sorry, that book is not in our library catalog. Please try another.");
+        if(!isALibraryItem) {
+            System.out.println("Sorry, that library item is not in our library catalog. Please try another.");
         }
-        return bookToCheckout;
+        return itemToCheckout;
     }
 
-    public String returnBook(String bookToReturn){
-        for (Book book : books){
-            if (checkIfLibraryBook(bookToReturn)) {
-                if( !book.getCheckedIn()) {
-                    book.setCheckedIn(true);
-                    book.setCheckedOutBy("n/a");
-                    System.out.println("Thank you for returning the book!");
+    public String returnItem(String itemToReturn, ItemType itemType){
+        for (LibraryItem item : libraryItems) {
+            if (checkIfLibraryItem(itemToReturn)) {
+                if( !item.getCheckedIn()) {
+                    item.setCheckedIn(true);
+                    item.setCheckedOutBy("n/a");
+                    System.out.println("Thank you for returning the library item!");
                 } else {
-                    System.out.println("This book wasn't checked out!");
+                    System.out.println("This library item wasn't checked out!");
                 }
                 break;
             }
-            if(!isALibraryBook) {
-                System.out.println("This book is not in our catalog!");
+            if(!isALibraryItem) {
+                System.out.println("This library item is not in our catalog!");
             }
         }
-        return bookToReturn;
-    }
-
-    public boolean checkIfLibraryMovie(String movieToCheck){
-        for (Movie movie : movies){
-            if (movie.getTitle().equals(movieToCheck)){
-                isALibraryMovie = true;
-            }
-        }
-        return isALibraryMovie;
-    }
-
-    public String checkoutMovie(String movieToCheckout, String libraryNumber){
-        for (Movie movie : movies){
-            if (checkIfLibraryMovie(movieToCheckout)) {
-                if( movie.getCheckedIn()) {
-                    movie.setCheckedIn(false);
-                    movie.setCheckedOutBy(libraryNumber);
-                    System.out.println("You've checked out the movie!");
-                } else {
-                    System.out.println("This movie is currently checked out!");
-                }
-                break;
-            }
-            if(!isALibraryMovie) {
-                System.out.println("This movie is not in our catalog!");
-            }
-        }
-        return movieToCheckout;
-    }
-
-    public String returnMovie(String movieToReturn){
-        for (Movie movie : movies){
-            if (checkIfLibraryMovie(movieToReturn)) {
-                if(!movie.getCheckedIn()) {
-                    movie.setCheckedIn(true);
-                    movie.setCheckedOutBy("n/a");
-                    System.out.println("Thank you for returning the movie!");
-                } else {
-                    System.out.println("This movie wasn't checked out!");
-                }
-                break;
-            }
-            if(!isALibraryMovie) {
-                System.out.println("This movie is not in our catalog!");
-            }
-        }
-        return movieToReturn;
+        return itemToReturn;
     }
 
     public void addUser(User user) {
@@ -229,22 +187,22 @@ public class BibliotecaApp {
                 break;
             case 2:
                 String bookToCheckOut = libraryReader.getReading("What book would you like to check out? ");
-                checkoutBook(bookToCheckOut, libraryNumber);
+                checkoutItem(bookToCheckOut, libraryNumber, ItemType.BOOK);
                 break;
             case 3:
                 String bookToCheckin = libraryReader.getReading("What book would you like to return? ");
-                returnBook(bookToCheckin);
+                returnItem(bookToCheckin, ItemType.MOVIE);
                 break;
             case 4:
                 displayMovieList();
                 break;
             case 5:
                 String movieToCheckOut = libraryReader.getReading("What movie would you like to check out? ");
-                checkoutMovie(movieToCheckOut, libraryNumber);
+                checkoutItem(movieToCheckOut, libraryNumber, ItemType.MOVIE);
                 break;
             case 6:
                 String movieToCheckin = libraryReader.getReading("What book would you like to return? ");
-                returnMovie(movieToCheckin);
+                returnItem(movieToCheckin, ItemType.MOVIE);
                 break;
 
             case 7:
@@ -263,16 +221,10 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         LibraryReader libraryReader = new LibraryReader(System.in);
-//        ArrayList<Book> books = new ArrayList<Book>();
-//        Book b1 = new Book("Lala Land", "Kathy Sierra", 2003, true, "n/a");
-//        Book b2 = new Book("In Love", "Kent Beck", 2003, true, "n/a");
-//        books.add(b1);
-//        books.add(b2);
-//        ArrayList<Movie> movies = new ArrayList<Movie>();
-        BibliotecaApp guest = new BibliotecaApp(books, movies, libraryReader);
+        BibliotecaApp guest = new BibliotecaApp(createBookList(), createMovieList(), libraryReader);
         guest.welcomeMessage();
-        guest.createBookList();
-        guest.createMovieList();
-        guest.initialLogin();
+        do {
+            guest.initialLogin();
+        } while (true);
     }
 }

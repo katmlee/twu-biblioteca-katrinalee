@@ -17,7 +17,7 @@ public class LibraryReader {
     public String getReading(String prompt){
         String userInput = null;
         System.out.print(prompt);
-        Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(systemIn);
         userInput = input.nextLine();
         return userInput;
 

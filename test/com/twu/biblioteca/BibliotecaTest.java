@@ -17,6 +17,7 @@ public class BibliotecaTest {
     private BibliotecaApp library;
     private ArrayList<Book> books;
     private ArrayList<Movie> movies;
+    private ArrayList<User> users;
 //    private LibraryReader libraryReader;
 
     @Before
@@ -24,9 +25,7 @@ public class BibliotecaTest {
         books = new ArrayList<Book>();
         movies = new ArrayList<Movie>();
         LibraryReader libraryReader = new LibraryReader(System.in);
-        library = new BibliotecaApp(books, movies, libraryReader);
-        library.createBookList();
-        library.createMovieList();
+        library = new BibliotecaApp(library.createBookList(), library.createMovieList(), libraryReader);
     }
 
     @Test
@@ -36,8 +35,11 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCreateNewListOfBooks() {
-
-        assertEquals(books.size(), 4);
+        Book book1 = new Book("Help Me", "Gary Cook", 1990, true, "n/a");
+        Book book2 = new Book("Develop", "Katurtle", 1940, true, "n/a");
+        books.add(book1);
+        books.add(book2);
+        assertEquals(books.size(), 2);
     }
 
     @Test
@@ -51,7 +53,7 @@ public class BibliotecaTest {
     public void shouldAddBookToBookList() {
         Book book = new Book("Help Me", "Gary Cook", 1990, true, "n/a");
         books.add(book);
-        assertEquals(books.size(), 5);
+        assertEquals(books.size(), 1);
     }
 
     @Test
@@ -60,24 +62,24 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shouldPrintOutAListOfBooks() {
-
-    }
-
-    @Test
     public void shouldCheckIfBookExistsInSystem() {
 
-        assertFalse(library.checkIfLibraryBook("Java Masters"));
+        assertFalse(library.checkIfLibraryItem("Java Masters"));
 
-        assertTrue(library.checkIfLibraryBook("Head First Java"));
+        assertTrue(library.checkIfLibraryItem("Head First Java"));
     }
 
     @Test
     public void shouldConfirmBookIsCheckedInBeforeItGetsCheckedout() {
 
-        assertTrue(books.get(0).getCheckedIn());
+        Book book = new Book("Head", "Kathy Sierra", 2003, true, "n/a");
+        books.add(book);
+        LibraryReader libraryReader = null;
+        library = new BibliotecaApp(books, library.createMovieList(), libraryReader);
 
-        library.checkoutBook("Head First Java", "123-2016");
+        System.out.println(books.get(0).getCheckedIn());
+
+        library.checkoutItem("Head", "193-2016", ItemType.BOOK);
 
         assertFalse(books.get(0).getCheckedIn());
 
@@ -85,16 +87,27 @@ public class BibliotecaTest {
 
     @Test
     public void shouldSetBookToCheckedOutAndReturnBook() {
+        Book book = new Book("Head", "Kathy Sierra", 2003, true, "n/a");
+        books.add(book);
+        LibraryReader libraryReader = null;
+        library = new BibliotecaApp(books, library.createMovieList(), libraryReader);
 
-        library.checkoutBook("Head First Java", "123-2016");
+        library.checkoutItem("Head", "123-2016", ItemType.BOOK);
 
         assertFalse(books.get(0).getCheckedIn());
     }
 
     @Test
     public void shouldSetBookToCheckedinAndReturnBook() {
+        Book book = new Book("Head", "Kathy Sierra", 2003, true, "n/a");
+        books.add(book);
+        LibraryReader libraryReader = null;
+        library = new BibliotecaApp(books, library.createMovieList(), libraryReader);
 
-        library.returnBook("Head First Java");
+        library.checkoutItem("Head", "123-2016", ItemType.BOOK);
+        assertFalse(books.get(0).getCheckedIn());
+
+        library.returnItem("Head", ItemType.BOOK);
 
         assertTrue(books.get(0).getCheckedIn());
 
@@ -126,34 +139,35 @@ public class BibliotecaTest {
 
     @Test
     public void shouldCheckIfMovieIsInMovieList() {
-        assertFalse(library.checkIfLibraryMovie("When Harry Met Sally"));
-        assertTrue(library.checkIfLibraryMovie("Barry"));
-    }
-
-    @Test
-    public void shouldCheckIfMovieIsCheckedIn() {
-        assertTrue(movies.get(0).getCheckedIn());
-        assertFalse(movies.get(2).getCheckedIn());
+        assertFalse(library.checkIfLibraryItem("When Harry Met Sally"));
+        assertTrue(library.checkIfLibraryItem("Barry"));
     }
 
     @Test
     public void shouldCheckOutMovieAndReturnMovieAndSetCheckedInToFalse() {
+        Movie movie = new Movie ("Barry", 2016, "Jon Siegal", "8", true, "n/a");
+        movies.add(movie);
+        LibraryReader libraryReader = null;
+        library = new BibliotecaApp(books, movies, libraryReader);
 
-        library.checkoutMovie("Barry", "123-2016");
+        library.checkoutItem("Barry", "123-2016", ItemType.MOVIE);
 
         assertEquals(false, movies.get(0).getCheckedIn());
     }
 
-//    @Test
-//    public void shouldCheckInMovieAndReturnMovieAndSetCheckedInToTrue(){
-//        System.out.print(movies);
-//        library.returnMovie("Frozen");
-//        System.out.print(movies);
-//
-//        assertTrue(movies.get(1).getCheckedIn());
-//        assertEquals(movies.get(1).getTitle(), "Frozen");
-//
-//    }
+    @Test
+    public void shouldCheckInMovieAndReturnMovieAndSetCheckedInToTrue(){
+        Movie movie = new Movie ("Frozen", 2016, "Jon Siegal", "8", false, "n/a");
+        movies.add(movie);
+        LibraryReader libraryReader = null;
+        library = new BibliotecaApp(books, movies, libraryReader);
+
+        library.returnItem("Frozen", ItemType.MOVIE);
+
+        assertTrue(movies.get(0).getCheckedIn());
+        assertEquals(movies.get(0).getTitle(), "Frozen");
+
+    }
 
     @Test
     public void shouldCreateANewUser(){
@@ -161,13 +175,13 @@ public class BibliotecaTest {
         assertEquals(user.getName(), "Katrina");
 
     }
-//  TEST IS STALLING BECAUSE MENU GETS PULLED UP
+
 //    @Test
 //    public void shouldLoginTheUser(){
 //        User user = new User("Katrina", "katrinamarielee@gmail.com", "0451289109", "123-2016", "Thoughtworks2016", false);
 //        ArrayList<User> users = library.createUserList();
 //        LibraryReader libraryReader;
-//        String data = "6";
+//        String data = "8";
 //        InputStream input = System.in;
 //        try {
 //            System.setIn(new ByteArrayInputStream(data.getBytes()));
@@ -176,10 +190,8 @@ public class BibliotecaTest {
 //        } finally {
 //            System.setIn(input);
 //        }
-////        LibraryReader libraryReader = new LibraryReader(System.in);
+//
 //        library = new BibliotecaApp(books, movies, libraryReader);
-//        library.createBookList();
-//        library.createMovieList();
 //
 //        library.login(users.get(0).getLibraryNumber(), users.get(0).getPassword());
 //
